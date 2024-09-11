@@ -30,7 +30,11 @@ This repository contains code and data needed to reproduce the data analysis and
   
 ├── **figures** &#x1F4C1; *Contains all the plots of the paper.
 
-├── `*patches2.duckdb` &#x1F986; *DuckDB database which contains patch LPJ-GUESS data. See https://github.com/lucialayr/borealRecovery for details on methodlogy* 
+├── `*patches2.duckdb` &#x1F986; *DuckDB database which contains patch LPJ-GUESS data.*
+*See https://github.com/lucialayr/borealRecovery for details on methodlogy* 
+
+
+
 
 
 *The figures is published under a CC-BY-SA license. To reuse please cite:*
