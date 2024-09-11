@@ -2,8 +2,9 @@
 
 This repository contains code and data needed to reproduce the data analysis and figures of Chapter 3.3 of my thesis. data will be released once the paper is published.
 
-<img align="left" src="figures/potential_landscape.png" style="width: 80%;">
+<img align="left" src="figures/potential_landscape.png" style="width: 60%;">
 
+<br /> 
 
 ## Folder structure
 
