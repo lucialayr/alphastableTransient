@@ -128,7 +128,7 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), stab
 read_vegetation_data = function(variable) {
   scenario = "ssp126"
   
-  con = dbConnect(duckdb(), dbdir = "/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/patch_analysis_paper/patches2.duckdb", read_only = FALSE) #create the database
+  con = dbConnect(duckdb(), dbdir = "/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/patch_analysis_paper/data/patches2.duckdb", read_only = FALSE) #create the database
   dbListTables(con)
   
   

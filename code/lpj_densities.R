@@ -39,7 +39,7 @@ year = 2015
 scenario = "ssp126"
 variable = "cmass"
 
-con = dbConnect(duckdb(), dbdir = "/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/patch_analysis_paper/patches2.duckdb", read_only = FALSE) #create the database
+con = dbConnect(duckdb(), dbdir = "/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/patch_analysis_paper/data/patches2.duckdb", read_only = FALSE) #create the database
 dbListTables(con)
 
 ecoregions = read_csv("data/ext/above_ecoregion_lpjguess_grid.csv") %>%
