@@ -4,6 +4,7 @@ This repository contains code and data needed to reproduce the data analysis and
 
 <img align="left" src="figures/potential_landscape.png" style="width: 60%;">
 
+
 ## Folder structure
 
 ├── **code** &#x1F4C1;
@@ -26,7 +27,7 @@ This repository contains code and data needed to reproduce the data analysis and
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `trajectoriess_a<alpha>_k<k>.csv`&#x1F4C4; *Data for trajectories*
 
-├── `*patches2.duckdb` &#x1F986; *DuckDB database which contains patch LPJ-GUESS data.* $^*$
+├── `*patches2.duckdb` &#x1F986; *DuckDB database which contains patch LPJ-GUESS data.*$^*$
   
 ├── **figures** &#x1F4C1; *Contains all the plots of the paper.*
 
