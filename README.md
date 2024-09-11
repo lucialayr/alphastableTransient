@@ -22,15 +22,15 @@ This repository contains code and data needed to reproduce the data analysis and
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `trajectoriess_a<alpha>_k<k>.csv`&#x1F4C4; *Data for trajectories*
 
+├── `*patches2.duckdb` &#x1F986; *DuckDB database which contains patch LPJ-GUESS data.* $*$
+
 │&nbsp; &nbsp; &nbsp; &nbsp;└── processed &#x1F4C1;  *intermediate data*
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└── ext &#x1F4C1;  *External helper files*
   
-├── **figures** &#x1F4C1; *Contains all the plots of the paper.
+├── **figures** &#x1F4C1; *Contains all the plots of the paper.*
 
-├── `*patches2.duckdb` &#x1F986; *DuckDB database which contains patch LPJ-GUESS data.*
-*See https://github.com/lucialayr/borealRecovery for details on methodlogy* 
-
+$*$*See https://github.com/lucialayr/borealRecovery for details on methodlogy* 
 
 
 
