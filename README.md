@@ -1,10 +1,8 @@
 # Disturbances and long-transients give the illusion of alternative stable states
 
-This repository contains code and data needed to reproduce the data analysis and figures of Chapter 3.3 of my thesis. data will be released once the paper is published.
+This repository contains code and data needed to reproduce the data analysis and figures of Chapter 3.3 of my thesis. Data will be released once the paper is published.
 
-<img align="left" src="figures/potential_landscape.png" style="width: 60%;">
-
-<br /> 
+<img src="figures/potential_landscape.png" width="600" />
 
 ## Folder structure
 
@@ -34,7 +32,7 @@ This repository contains code and data needed to reproduce the data analysis and
 
 $^*$*See https://github.com/lucialayr/borealRecovery for details on methodlogy* 
 
-
+</p>
 
 
 *The conceptual figure is published under a CC-BY-SA license. To reuse please cite:*
