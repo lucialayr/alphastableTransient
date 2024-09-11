@@ -16,8 +16,6 @@ This repository contains code and data needed to reproduce the data analysis and
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `trajectories.R`&#x1F4C4; *Plots trajectories of* $\chi^C_{\text{i}}(t)$ *and* $X(t)$
 
-│&nbsp; &nbsp; &nbsp; &nbsp;└──  `utils.R`&#x1F4C4; *Various helper functions for plotting*
-
 ├── **data** &#x1F4C1;  *model output on various steps of processing*
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `final_states_a<alpha>_k<k>.csv`&#x1F4C4; *Data for potential estimations*

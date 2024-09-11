@@ -1,6 +1,3 @@
-setwd("/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/patch_analysis_paper")
-source("code/utils.R")
-
 setwd("/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/transient_alphastable")
 
 install.packages("scico")
@@ -10,8 +7,6 @@ install.packages("ggnewscale")
 library(duckdb)
 library(purrr)
 library(scico)
-library(terra)
-library(sf)
 library(cowplot)
 library(tidyverse)
 library(MASS)
@@ -38,6 +33,21 @@ theme_set(
       strip.background = element_rect(fill = "transparent", color = NA)
     )
 )
+
+long_names_pfts = function(x) {
+  x = gsub("ibs", "Pioneering broadleaf", x)
+  x = gsub("tebs", "Temperate broadleaf", x)
+  x = gsub("bne", "Needleleaf evergreen", x)
+  x = gsub("bine", "Shade-intolerant\nneedleleaf evergreen", x)
+  x = gsub("bns", "Needleleaf summergreen", x)
+  x = gsub("tene", "Temperate needleleaf", x)
+  x = gsub("tundra", "Tundra", x)
+  x = gsub("soil", "Bare soil", x)
+  x = gsub("mixed forest", "Mixed forest", x)
+  x = gsub("otherc", "Conifers (other)", x)
+  x = gsub("regeneration failure", "Regeneration failure", x)
+  return(x)
+}
 
 
 ########### TRANSIENTS SIMPLE
@@ -199,56 +209,3 @@ pC = plot_grid(p1, p2, rel_widths = c(1, 0.3), align = "hv", axis = "l")
 plot_grid(pC, pB, pA, ncol = 1, labels = c("(a)", "(b)", "(c)"), vjust = 1)
 
 ggsave("figures/trajectories_transients.pdf", height = 8.5, scale = 1)
-
-##################
-#OLD
-##################
-###looking for long transients
-fully_recovered = dbGetQuery(con, paste0("SELECT Lon, Lat, PID FROM '", scenario, "_d150_", variable, "' WHERE age = 300 AND Year > 2100" )) %>%
-  unique() 
-
-dbWriteTable(con, "fully_recovered", fully_recovered, overwrite = T)
-
-df_cmass = dbGetQuery(con, paste0("SELECT d.Year, d.PFT, d.PID, d.Lon, d.Lat, d.cmass, d.age FROM '", scenario, "_d150_cmass' 
-                                AS d INNER JOIN fully_recovered AS l ON d.PID = l.PID AND d.Lon = l.Lon AND d.Lat = l.Lat"))
-
-df_cmass_test = df_cmass %>%
-  filter(PID == 16 & Lon < -140 & Lon > -160) %>%
-  group_by(Year, Lon, Lat, PID) %>%
-  mutate(relative = cmass/sum(cmass))  %>% 
-  ungroup() %>%
-  filter(PFT == "BNE") %>%
-  mutate(across(everything(), ~ifelse(is.na(.), 0, .))) %>% #if sum(cmass) = 0, this will be NA (can happen in the first years after a disturbance)
-  unique()
-
-
-ggplot() + theme_classic() +
-  geom_line(data = df_cmass_test, aes(x = Year, y = relative, group = interaction(Lon, Lat, PID))) +
-  geom_point(data = df_cmass_test[df_cmass_test$age > 300,], aes(x = Year, y = relative), color = "red", shape = 4) +
-  scale_x_continuous(breaks = c(1900, 2100)) +
-  facet_wrap(Lon ~ Lat)
-
-
-long_transients = data.frame(Lon = c(-149.25, -157.25, -156.75, -147.75, -148.75, -149.75, -146.25, -147.75, -148.75, -149.75, -142.25, -141.75),
-                             Lat = c(64.75, 66.75, 66.25, 64.75, 64.75, 64.25, 66.75, 66.25, 65.25, 64.25, 67.25, 67.25),
-                             PID = c(1, 1, 2, 3, 4, 7, 10, 11, 12, 15, 16, 16)) %>%
-  unique()
-
-
-
-hist(df_cmass[df_cmass$Lon < -140 & df_cmass$Lon > -160 & df_cmass$PFT == "BNE" & df_cmass$Year == 2100,]$cmass)
-
-
-df_cmass_subset = df_cmass %>%
-  filter(Lon < -140 & Lon > -160 & Lat > 64 & Lat < 67) %>%
-  group_by(Year, Lon, Lat, PID) %>%
-  mutate(relative = cmass/sum(cmass))  %>% 
-  ungroup() %>%
-  filter(PFT == "BNE") %>%
-  mutate(across(everything(), ~ifelse(is.na(.), 0, .))) %>% #if sum(cmass) = 0, this will be NA (can happen in the first years after a disturbance)
-  unique()
-
-hist(df_cmass_subset$relative, breaks = 30)
-
-
-
