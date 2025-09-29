@@ -11,16 +11,19 @@ for k in  '-1' '-0.39' '-0.2'
 do
 
 
-input="[${a},${k},'test_data/']"
+input="[${a},${k}]"
 
 echo $input
 
-python transient_trajectories_splitting.py $a $k 'test_data'&
-python transient_final_state_splitting.py $a $k 'test_data'&
+python transient_trajectories_splitting.py $a $k 'test_data' &
+python transient_final_state_splitting.py $a $k 'test_data' &
 
 done
 done
 
 wait
+
+echo "All jobs finished."
+
 
 
