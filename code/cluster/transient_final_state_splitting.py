@@ -24,14 +24,14 @@ def stable_rv(alpha):
         a=a*np.power(np.cos(U*(1-alpha))/E,(1-alpha)/alpha)
         return(a)
 
-def simulate(alpha, k, path):
+def simulate(alpha, k):
 
     # simulation setting
-    num_simulations = 10000  # number of samples in Monte Carlo
+    num_simulations = 1  # number of samples in Monte Carlo
 
     Xzero = 1.0  # initial value
     T = 20       # we integrate solutions on the time interval [0,T]
-    N = 10000     # number of steps pro time unit
+    N = 1000     # number of steps pro time unit
     dt = 1.0/N   # time mesh
 
     sigma = .6
@@ -46,15 +46,15 @@ def simulate(alpha, k, path):
                 xi = stable_rv(alpha)
                 y =  X[j] - k*dt + noise_amplitude*xi
                 X[j] = Phi(dt, y)
-                run[j] = j
+                runs[j] = j
 
     # Convert the results to a DataFrame
     results_df = pd.DataFrame({'run': runs, 'final_state': X})
 
     # Save to CSV
-    results_df.to_csv(f"{path}final_states_a{alpha}_k{round(k, 2)}.csv", index=False)
+    results_df.to_csv(f"test_data//final_states_a{alpha}_k{round(k, 2)}.csv", index=False)
 
 var1 = literal_eval(sys.argv[1])
 var2 = literal_eval(sys.argv[2])
-var3 = literal_eval(sys.argv[3])
-simulate(var1, var2, var3)
+
+simulate(var1, var2)
