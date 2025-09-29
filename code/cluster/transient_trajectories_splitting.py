@@ -38,7 +38,7 @@ def simulate(alpha, k):
 	num_simulations = 1
 
 	# Store all raw simulation paths
-	sim_paths = np.zeros((num_simulations, T * N + 1))
+	sim_paths = np.zeros((T * N + 1, num_simulations))
 
 	for sim_idx in range(num_simulations):
 		X = np.zeros(T * N + 1)
@@ -47,7 +47,7 @@ def simulate(alpha, k):
 			xi = stable_rv(alpha)
 			y = X[n - 1] - k*dt + noise_amplitude*xi
 			X[n] = Phi(dt, y)
-		sim_paths[sim_idx, :] = X
+		sim_paths[:, sim_idx] = X
 	
 	# Convert the dictionary to a DataFrame		
 	traj_df = pd.DataFrame(sim_paths)
