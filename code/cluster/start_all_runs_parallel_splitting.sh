@@ -15,8 +15,8 @@ input="[${a},${k}]"
 
 echo $input
 
-python transient_trajectories_splitting.py $a $k 'test_data' &
-python transient_final_state_splitting.py $a $k 'test_data' &
+python transient_trajectories_splitting.py $a $k &
+python transient_final_state_splitting.py $a $k &
 
 done
 done

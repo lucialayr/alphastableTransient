@@ -9,20 +9,7 @@ import pandas as pd
 from ast import literal_eval
 import sys
 
-def Phi(t,x):
-    return x/np.sqrt( x*x*(1-np.exp(-2*t))  +  np.exp(-2*t)  )
-
-def stable_rv(alpha):
-    if alpha == 2:
-        return rng.standard_normal()
-    elif alpha == 1: 
-        return rng.standard_cauchy()
-    else:
-        U = np.pi*(rng.random()-0.5)  # uniform r.v. on [-Pi/2,Pi/2]
-        E = -np.log(rng.random())     # standard exponential r.v.
-        a=np.sin(alpha*U)/np.power(np.cos(U),1/alpha)
-        a=a*np.power(np.cos(U*(1-alpha))/E,(1-alpha)/alpha)
-        return(a)
+from splitting_functions import stable_rv, Phi
 
 def simulate(alpha, k):
 
@@ -52,7 +39,7 @@ def simulate(alpha, k):
     results_df = pd.DataFrame({'run': runs, 'final_state': X})
 
     # Save to CSV
-    results_df.to_csv(f"test_data//final_states_a{alpha}_k{round(k, 2)}.csv", index=False)
+    results_df.to_csv(f"test_data/final_states_a{alpha}_k{round(k, 2)}.csv", index=False)
 
 var1 = literal_eval(sys.argv[1])
 var2 = literal_eval(sys.argv[2])
