@@ -15,7 +15,7 @@ def simulate(alpha, k):
 
 	Xzero = 1.0  # initial value
 	T = 50       # we integrate solutions on the time interval [0,T]
-	N = 1000     # number of steps pro time unit
+	N = 10000     # number of steps pro time unit
 	dt = 1.0/N   # time mesh
 
 	sigma = .6
@@ -40,7 +40,7 @@ def simulate(alpha, k):
 	traj_df = pd.DataFrame(sim_paths)
 	
 	# Save to CSV
-	traj_df.to_csv(f"test_data/trajectories_a{alpha}_k{round(k, 2)}.csv", index=False)
+	traj_df.to_csv(f"data/trajectories_a{alpha}_k{round(k, 2)}.csv", index=False)
 	
 var1=literal_eval(sys.argv[1])
 var2=literal_eval(sys.argv[2])
