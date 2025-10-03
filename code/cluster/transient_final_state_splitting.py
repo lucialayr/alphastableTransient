@@ -14,11 +14,15 @@ from splitting_functions import stable_rv, Phi
 def simulate(alpha, k):
 
     # simulation setting
-    num_simulations = 1  # number of samples in Monte Carlo
+    num_simulations = 100000  # number of samples in Monte Carlo
 
     Xzero = 1.0  # initial value
-    T = 20       # we integrate solutions on the time interval [0,T]
-    N = 1000     # number of steps pro time unit
+
+    if k == 0:
+        T = 40 #bi-stable systems need longer to stabilize
+    else:
+         T = 10 # we integrate solutions on the time interval [0,T]
+    N = 10000     # number of steps pro time unit
     dt = 1.0/N   # time mesh
 
     sigma = .6
@@ -39,7 +43,7 @@ def simulate(alpha, k):
     results_df = pd.DataFrame({'run': runs, 'final_state': X})
 
     # Save to CSV
-    results_df.to_csv(f"test_data/final_states_a{alpha}_k{round(k, 2)}.csv", index=False)
+    results_df.to_csv(f"data/final_states_a{alpha}_k{round(k, 2)}.csv", index=False)
 
 var1 = literal_eval(sys.argv[1])
 var2 = literal_eval(sys.argv[2])
