@@ -29,7 +29,7 @@ theme_set(
 )
 
 
-colors = c("2" = "black", "1.5" =  "#0072B2", "1.0" = "#009E73", "0.5" =  "#56B4E9")
+colors = c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")
 
 ##
 
@@ -110,9 +110,9 @@ simulated_densities = function() {
   
   data = list()
   
-  for (k in c(-1, -0.39)) {
+  for (k in c(-1, -0.39, 0)) {
     
-    for (a in c(2, 1.5, 1.0, 0.5)) {
+    for (a in c(2, 1.5, 1, 0.5)) {
       
       df = read_csv(paste0("data/final_states_a", a, "_k", k, ".csv")) %>%
         filter(abs(final_state) < 3) %>%
@@ -130,7 +130,7 @@ simulated_densities = function() {
   
   df = purrr::reduce(data, bind_rows) 
   
-  df$alpha = factor(df$alpha, levels = c("2", "1.5",  "1.0", "0.5"))
+  df$alpha = factor(df$alpha, levels = c("2", "1.5",  "1", "0.5"))
   df$k_label = factor(df$k_label, levels = c("k = -1", "k = -0.39", "k = 0"))
   
   fixed_points = data.frame(fp = c(-1, 0, 1, 
@@ -151,9 +151,9 @@ simulated_densities = function() {
       facet_wrap(~k_label, scales = "free_y", nrow = 1) +
       scale_x_continuous(limits = c(-2., 2), expand = c(0,0), name = "State X") +
       scale_y_continuous(expand = c(0,0), limits = c(-.5, 5), name = expression("Estimated potential"~hat(U)~"("~X~")"),) +
-      scale_color_manual(values = rev(c("2" = "black", "1.5" =  "#0072B2", "1.0" = "#009E73", "0.5" =  "#56B4E9")),
+      scale_color_manual(values = rev(c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
                          name = expression(alpha~of~noise)) +
-      scale_linewidth_manual(values = rev(c("2" = 1, "1.5" =  0.75, "1.0" = 0.75, "0.5" =  0.75)),
+      scale_linewidth_manual(values = rev(c("2" = 1, "1.5" =  0.75, "1" = 0.75, "0.5" =  0.75)),
                              name = expression(alpha~of~noise)) +
       scale_linetype_manual(values = c("stable" = "solid", "unstable" = "dotted", ghost = "dotdash"), name = "Fixed points") +
       scale_shape_manual(values = c("stable" = 19, "unstable" = 1, "ghost" = 10), name = "Fixed points") +
@@ -170,7 +170,9 @@ simulated_densities = function() {
 
 plot_grid(p1, p2, axis = "l", align = "hv", rel_widths = c(0.5, 1), labels = c("(a)", "(b)"))
 
-ggsave("figures/estimated_potential.pdf", height = 5.5)
+ggsave("figures/estimated_potential.pdf", width = 9, height = 5.5)
+
+
 
 ##exploring the denstities
 df = read_csv("/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/transient_alphastable/data/processed/lpjguess_2d.csv") %>%
