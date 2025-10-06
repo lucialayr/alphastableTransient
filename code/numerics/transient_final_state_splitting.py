@@ -11,10 +11,10 @@ import sys
 
 from splitting_functions import stable_rv, Phi
 
-def simulate(alpha, k):
+def simulate(alpha, k, batch):
 
     # simulation setting
-    num_simulations = 100000  # number of samples in Monte Carlo
+    num_simulations = 1#25000  # number of samples in Monte Carlo
 
     Xzero = 1.0  # initial value
 
@@ -37,15 +37,18 @@ def simulate(alpha, k):
                 xi = stable_rv(alpha)
                 y =  X[j] - k*dt + noise_amplitude*xi
                 X[j] = Phi(dt, y)
-                runs[j] = j
+                runs[j] = j + 25000*batch #make sure that run ID is unique across batches
 
     # Convert the results to a DataFrame
     results_df = pd.DataFrame({'run': runs, 'final_state': X})
 
+    print(results_df.head())
+
     # Save to CSV
-    results_df.to_csv(f"data/final_states_a{alpha}_k{round(k, 2)}.csv", index=False)
+    #results_df.to_csv(f"data/final_states_a{alpha}_k{round(k, 2)}_batch{batch}.csv", index=False)
 
 var1 = literal_eval(sys.argv[1])
 var2 = literal_eval(sys.argv[2])
+var3 = literal_eval(sys.argv[3])
 
-simulate(var1, var2)
+simulate(var1, var2, var3)

@@ -15,8 +15,11 @@ input="[${a},${k}]"
 
 echo $input
 
-python code/cluster/transient_trajectories_splitting.py $a $k &
-python code/cluster/transient_final_state_splitting.py $a $k &
+python code/numerics/transient_trajectories_splitting.py $a $k &
+python code/numerics/transient_final_state_splitting.py $a $k 0 &
+python code/numerics/transient_final_state_splitting.py $a $k 1 &
+python code/numerics/transient_final_state_splitting.py $a $k 2 &
+python code/numerics/transient_final_state_splitting.py $a $k 3 &
 
 done
 done
