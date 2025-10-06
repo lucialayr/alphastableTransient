@@ -1,8 +1,8 @@
-setwd("/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/transient_alphastable")
+setwd("~/Desktop/Publications/alphastableTransient")
 
-install.packages("scico")
-install.packages("cowplot")
-install.packages("ggnewscale")
+#install.packages("scico")
+#install.packages("cowplot")
+#install.packages("ggnewscale")
 
 library(duckdb)
 library(purrr)
@@ -56,7 +56,7 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), stab
   
   data = list()
   
-  for (a in c(2, 1.8, 1.5, 1.3)) {
+  for (a in c(2, 1.5, 1, 0.5)) {
     
     for (k in c(k)) {
       
@@ -74,18 +74,18 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), stab
   df = purrr::reduce(data, bind_rows) %>%
     filter(timestep > t1 & timestep < t2)
   
-  df$a = factor(df$a, levels = rev(c("2", "1.8",  "1.5", "1.3")))
+  df$a = factor(df$a, levels = rev(c("2", "1.5",  "1", "0.5")))
   
  (p1 = ggplot() + 
     coord_cartesian(clip = "off") +
     geom_hline(aes(yintercept = fp, linetype = stability), color = "#D55E00", linewidth = 0.5) +
     geom_line(data = df, aes(x = timestep, y = state, color = a, linewidth = a)) +
     geom_point(aes(x = -Inf, y = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1) +
-    scale_color_manual(values = (c("2" = "black", "1.8" =  "#0072B2", "1.5" = "#009E73", "1.3" =  "#56B4E9")),
+    scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
                        name = expression(alpha~of~noise)) +
     scale_linetype_manual(values = c("stable" = "solid", "unstable" = "dotted", ghost = "dotdash"), name = "Fixed points") +
     scale_shape_manual(values = c("stable" = 19, "unstable" = 1, "ghost" = 10), name = "Fixed points") +
-    scale_linewidth_manual(values = (c("2" = 0.3, "1.8" =  0.3, "1.5" = 0.3, "1.3" =  0.3)),
+    scale_linewidth_manual(values = (c("2" = 0.3, "1.5" =  0.3, "1" = 0.3, "0.5" =  0.3)),
                            name = expression(alpha~of~noise)) +
     scale_x_continuous(expand = c(0,0), name = "Simulation timestep") +
     scale_y_continuous(limits = c(-2.5, 2), breaks = c(-2, -1, 0, 1, 2), expand = c(0,0), name = "State X") +
@@ -102,13 +102,13 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), stab
       geom_point(aes(y = -Inf, x = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1.2) +
       scale_y_continuous(expand = c(0,0), breaks = c(0), name = expression("Density "~hat(p)~"("~X~")")) +
       scale_x_continuous(limits = c(-2.5, 2), breaks = c(-2, -1, 0, 1, 2),  expand = c(0,0), name =  "") +
-      scale_color_manual(values = rev(c("2" = "black", "1.8" =  "#0072B2", "1.5" = "#009E73", "1.3" =  "#56B4E9")),
+      scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
                          name = expression(alpha~of~noise)) +
       scale_linetype_manual(values = c("stable" = "solid", "unstable" = "dotted", ghost = "dotdash"), name = "Fixed points") +
       scale_shape_manual(values = c("stable" = 19, "unstable" = 1, "ghost" = 10), name = "Fixed points") +
-      scale_fill_manual(values = rev(c("2" = "black", "1.8" =  "#0072B2", "1.5" = "#009E73", "1.3" =  "#56B4E9")),
+      scale_fill_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
                         name = expression(alpha~of~noise)) +
-      scale_linewidth_manual(values = rev(c("2" = 0.75, "1.8" =  0.5, "1.5" = 0.5, "1.3" =  0.5)),
+      scale_linewidth_manual(values = rev(c("2" = 0.75, "1.5" =  0.5, "1" = 0.5, "0.5" =  0.5)),
                              name = expression(alpha~of~noise)) +
       theme(legend.position = "none",
             legend.direction = "vertical",
