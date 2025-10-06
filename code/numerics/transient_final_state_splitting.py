@@ -14,7 +14,7 @@ from splitting_functions import stable_rv, Phi
 def simulate(alpha, k, batch):
 
     # simulation setting
-    num_simulations = 1#25000  # number of samples in Monte Carlo
+    num_simulations = 25000  # number of samples in Monte Carlo
 
     Xzero = 1.0  # initial value
 
@@ -42,10 +42,8 @@ def simulate(alpha, k, batch):
     # Convert the results to a DataFrame
     results_df = pd.DataFrame({'run': runs, 'final_state': X})
 
-    print(results_df.head())
-
     # Save to CSV
-    #results_df.to_csv(f"data/final_states_a{alpha}_k{round(k, 2)}_batch{batch}.csv", index=False)
+    results_df.to_csv(f"data/final_states_a{alpha}_k{round(k, 2)}_batch{batch}.csv", index=False)
 
 var1 = literal_eval(sys.argv[1])
 var2 = literal_eval(sys.argv[2])
