@@ -103,7 +103,7 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), run_
       geom_density(data = df, aes(x = state, color = a, fill = a, linewidth = a), alpha = .05,  bw = 0.3) +
       geom_point(aes(y = -Inf, x = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1.2) +
       scale_y_continuous(expand = c(0,0), breaks = c(0), name = expression("Density "~hat(p)~"("~X~")")) +
-      scale_x_continuous(breaks = c(-2, -1, 0, 1, 2), expand = c(0,0), name =  "") +
+      scale_x_continuous(limits = c(-2.5, 2), breaks = c(-2, -1, 0, 1, 2),  expand = c(0,0), name =  "") +
       scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
                          name = expression(alpha~of~noise)) +
       scale_linetype_manual(values = c("stable" = "solid", "unstable" = "dotted", ghost = "dotdash"), name = "Fixed points") +
