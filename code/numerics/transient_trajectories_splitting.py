@@ -1,6 +1,7 @@
 import numpy as np
 import numpy.random as rng
 import matplotlib.pyplot as plt
+import scipy.stats as stats
 from scipy.stats import levy_stable, moment
 from scipy.special import gamma
 from scipy import linalg
@@ -14,7 +15,7 @@ from splitting_functions import stable_rv, Phi
 def simulate(alpha, k):
 
 	Xzero = 1.0  # initial value
-	T = 50       # we integrate solutions on the time interval [0,T]
+	T = 1000       # we integrate solutions on the time interval [0,T]
 	N = 10000     # number of steps pro time unit
 	dt = 1.0/N   # time mesh
 
@@ -22,7 +23,7 @@ def simulate(alpha, k):
 
 	noise_amplitude = sigma*np.power(dt,1/alpha)
 
-	num_simulations = 1
+	num_simulations = 20
 
 	# Store all raw simulation paths
 	sim_paths = np.zeros((T * N + 1, num_simulations))
@@ -30,10 +31,15 @@ def simulate(alpha, k):
 	for sim_idx in range(num_simulations):
 		X = np.zeros(T * N + 1)
 		X[0] = Xzero
+
+		#set random variables
+		xi_path = stats.levy_stable.rvs(alpha = alpha, beta = 0, loc = 0, scale = 1, random_state = sim_idx, size = T*N)
+
 		for n in range(1, T * N + 1):
-			xi = stable_rv(alpha)
+			xi = xi_path[n - 1]
 			y = X[n - 1] - k*dt + noise_amplitude*xi
 			X[n] = Phi(dt, y)
+
 		sim_paths[:, sim_idx] = X
 	
 	# Convert the dictionary to a DataFrame		
