@@ -8,7 +8,9 @@ This repository contains code and data needed to reproduce the data analysis and
 
 ├── **code** &#x1F4C1;
 
-│&nbsp; &nbsp; &nbsp; &nbsp;└── cluster &#x1F4C1;  *scripts to perform numerical simulations*
+│&nbsp; &nbsp; &nbsp; &nbsp;└── numerics &#x1F4C1;  *scripts to perform numerical simulations*
+
+│&nbsp; &nbsp; &nbsp; &nbsp;└── `Introduction_splitting_scheme.ipynb` &#x1F4C1; *An interactive notebook to give a friendly introduction to the splitting scheme*
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `lpj_densities.R`&#x1F4C4; *Estimates and plots* $\hat{p}(\chi^C_{\text{BNE}})$ *and* $\hat{p}(\chi^C_{\text{BNE}}, k_{T_G})$
 
@@ -16,9 +18,9 @@ This repository contains code and data needed to reproduce the data analysis and
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `trajectories.R`&#x1F4C4; *Plots trajectories of* $\chi^C_{\text{i}}(t)$ *and* $X(t)$
 
-├── **data** &#x1F4C1;  *model output on various steps of processing*
+├── **data** &#x1F4C1;  *The .csv files will not be in the repository but need to be created with the scripts in `data/numerics`*
 
-│&nbsp; &nbsp; &nbsp; &nbsp;└── processed &#x1F4C1;  *LPJ-GUESS simulation data$^*$ and helper files*
+│&nbsp; &nbsp; &nbsp; &nbsp;└── processed &#x1F4C1;  *LPJ-GUESS simulation data and helper files*
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `final_states_a<alpha>_k<k>.csv`&#x1F4C4; *Data for potential estimations*
 
