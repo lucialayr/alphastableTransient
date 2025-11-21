@@ -8,7 +8,7 @@ This repository contains code and data needed to reproduce the data analysis and
 
 ├── **code** &#x1F4C1;
 
-│&nbsp; &nbsp; &nbsp; &nbsp;└── cluster &#x1F4C1;  *scripts to perform numerical simulations on High Performance Computing infrastructure*
+│&nbsp; &nbsp; &nbsp; &nbsp;└── cluster &#x1F4C1;  *scripts to perform numerical simulations*
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `lpj_densities.R`&#x1F4C4; *Estimates and plots* $\hat{p}(\chi^C_{\text{BNE}})$ *and* $\hat{p}(\chi^C_{\text{BNE}}, k_{T_G})$
 
@@ -18,19 +18,15 @@ This repository contains code and data needed to reproduce the data analysis and
 
 ├── **data** &#x1F4C1;  *model output on various steps of processing*
 
-│&nbsp; &nbsp; &nbsp; &nbsp;└── processed &#x1F4C1;  *intermediate data*
-
-│&nbsp; &nbsp; &nbsp; &nbsp;└── ext &#x1F4C1;  *External helper files*
+│&nbsp; &nbsp; &nbsp; &nbsp;└── processed &#x1F4C1;  *LPJ-GUESS simulation data$^*$ and helper files*
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `final_states_a<alpha>_k<k>.csv`&#x1F4C4; *Data for potential estimations*
 
 │&nbsp; &nbsp; &nbsp; &nbsp;└──  `trajectoriess_a<alpha>_k<k>.csv`&#x1F4C4; *Data for trajectories*
-
-├── `*patches2.duckdb` &#x1F986; *DuckDB database which contains patch LPJ-GUESS data.*$^*$
   
 ├── **figures** &#x1F4C1; *Contains all the plots of the paper.*
 
-$^*$*See https://github.com/lucialayr/borealRecovery for details on methodlogy* 
+$^*$*See https://github.com/lucialayr/borealRecovery for details on methodology* 
 
 </p>
 
