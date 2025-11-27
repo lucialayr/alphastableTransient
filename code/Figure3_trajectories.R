@@ -34,23 +34,13 @@ theme_set(
     )
 )
 
-long_names_pfts = function(x) {
-  x = gsub("ibs", "Pioneering broadleaf", x)
-  x = gsub("tebs", "Temperate broadleaf", x)
-  x = gsub("bne", "Needleleaf evergreen", x)
-  x = gsub("bine", "Shade-intolerant\nneedleleaf evergreen", x)
-  x = gsub("bns", "Needleleaf summergreen", x)
-  x = gsub("tene", "Temperate needleleaf", x)
-  x = gsub("tundra", "Tundra", x)
-  x = gsub("soil", "Bare soil", x)
-  x = gsub("mixed forest", "Mixed forest", x)
-  x = gsub("otherc", "Conifers (other)", x)
-  x = gsub("regeneration failure", "Regeneration failure", x)
-  return(x)
+########### Functions
+
+for (i in seq(0,19)) {
+  (pA = plot_simple_model(0, t1 = 0, t2 = 1000000, run_id = i))
+  
+  ggsave(paste0(i, "_bistable.png"))
 }
-
-
-########### TRANSIENTS SIMPLE
 
 plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), run_id = 0, stability = c("stable", "unstable", "stable")) {
   
@@ -77,27 +67,27 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), run_
   
   df$a = factor(df$a, levels = rev(c("2", "1.5",  "1", "0.5")))
   
- (p1 = ggplot() + 
-    coord_cartesian(ylim = c(-2.5,2.5)) +
-    #geom_hline(data = NULL, yintercept = -0.585, linetype = 'dashed', color = "#D55E00", linewidth = 0.25) +
-    #geom_hline(data = NULL, yintercept = 1.16, linetype = 'solid', color = "#D55E00", linewidth = 0.25) +
-    geom_hline(data = NULL, aes(yintercept = fp, linetype = stability), color = "#D55E00", linewidth = 0.5) +
-    geom_line(data = df, aes(x = timestep, y = state, color = a, linewidth = a)) +
-    geom_point(data = NULL, aes(x = -Inf, y = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1) +
-    scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
-                       name = expression(alpha~of~noise)) +
-    scale_linetype_manual(values = c("stable" = "solid", "unstable" = "dotted", ghost = "dotdash"), name = "Fixed points") +
-    scale_shape_manual(values = c("stable" = 19, "unstable" = 1, "ghost" = 10), name = "Fixed points") +
-    scale_linewidth_manual(values = (c("2" = 0.3, "1.5" =  0.3, "1" = 0.3, "0.5" =  0.3)),
-                           name = expression(alpha~of~noise)) +
-    scale_x_continuous(expand = c(0,0), name = "Simulation timestep") +
-    scale_y_continuous(breaks = c(-2, -1, 0, 1, 2), expand = c(0,0), name = "State X") +
-    theme(legend.position = "bottom",
-          legend.direction = "horizontal",
-          plot.margin = unit(c(0.25, 0, 0, 0), "cm")) +
-     guides(color = guide_legend(override.aes = list(linewidth = 2))))
+  (p1 = ggplot() + 
+      coord_cartesian(ylim = c(-2.5,2.5)) +
+      #geom_hline(data = NULL, yintercept = -0.585, linetype = 'dashed', color = "#D55E00", linewidth = 0.25) +
+      #geom_hline(data = NULL, yintercept = 1.16, linetype = 'solid', color = "#D55E00", linewidth = 0.25) +
+      geom_hline(data = NULL, aes(yintercept = fp, linetype = stability), color = "#D55E00", linewidth = 0.5) +
+      geom_line(data = df, aes(x = timestep, y = state, color = a, linewidth = a)) +
+      geom_point(data = NULL, aes(x = -Inf, y = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1) +
+      scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
+                         name = expression(alpha~of~noise)) +
+      scale_linetype_manual(values = c("stable" = "solid", "unstable" = "dotted", ghost = "dotdash"), name = "Fixed points") +
+      scale_shape_manual(values = c("stable" = 19, "unstable" = 1, "ghost" = 10), name = "Fixed points") +
+      scale_linewidth_manual(values = (c("2" = 0.3, "1.5" =  0.3, "1" = 0.3, "0.5" =  0.3)),
+                             name = expression(alpha~of~noise)) +
+      scale_x_continuous(expand = c(0,0), name = "Simulation timestep") +
+      scale_y_continuous(breaks = c(-2, -1, 0, 1, 2), expand = c(0,0), name = "State X") +
+      theme(legend.position = "bottom",
+            legend.direction = "horizontal",
+            plot.margin = unit(c(0.25, 0, 0, 0), "cm")) +
+      guides(color = guide_legend(override.aes = list(linewidth = 2))))
   
-   ((p2 = ggplot() + 
+  ((p2 = ggplot() + 
       coord_flip(xlim = c(-2.5, 2.5)) +
       geom_vline(aes(xintercept = fp, linetype = stability), color = "#D55E00", linewidth = 0.5) +
       geom_density(data = df, aes(x = state, color = a, fill = a, linewidth = a), alpha = .05,  bw = 0.3) +
@@ -123,53 +113,19 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), run_
   return(p)
 }
 
-for (i in seq(0,19)) {
-  (pA = plot_simple_model(0, t1 = 0, t2 = 1000000, run_id = i))
-  
-  ggsave(paste0(i, "_bistable.png"))
-}
-
-
-(pA = plot_simple_model(-0.39, fp = c(1.16, -0.585), t1 = 270000, t2 = 600000, run_id = 9, stability = c("stable", "ghost")))
-
-(pB = plot_simple_model(0,  t1 = 670000, t2 = 1000000, run = 19))
-
-########### TRANSIENT VEGGIE
-
-read_vegetation_data = function(variable) {
-  scenario = "ssp126"
-  
-  con = dbConnect(duckdb(), dbdir = "/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/patch_analysis_paper/data/patches2.duckdb", read_only = FALSE) #create the database
-  dbListTables(con)
-  
-  
-  #these were created by manually looking at subsets of the data and finding trajectories that were able to fully recover twice in a row (pretty rare in this setting ..)
-  #see bottom of the script
-  
-  long_transients = data.frame(Lon = c(-149.25, -157.25, -156.75, -147.75, -148.75, -149.75, -146.25, -147.75, -148.75, -149.75, -142.25, -141.75),
-                               Lat = c(64.75, 66.75, 66.25, 64.75, 64.75, 64.25, 66.75, 66.25, 65.25, 64.25, 67.25, 67.25),
-                               PID = c(1, 1, 2, 3, 4, 7, 10, 11, 12, 15, 16, 16)) %>%
-    unique()
-  
-  
-  dbWriteTable(con, "long_transient_ssp126_pretty", long_transients, overwrite = T)
-  
-  df_ts_transient = dbGetQuery(con, paste0("SELECT d.Year, d.Lon, d.Lat, d.PID, d.PFT, d.age, d.cmass, d.ndist FROM '", scenario, "_d150_cmass' 
-                                AS d INNER JOIN long_transient_ssp126_pretty AS l ON d.PID = l.PID AND d.Lon = l.Lon AND d.Lat = l.Lat")) %>%
-    group_by(Year, Lon, Lat, PID) %>%
-    mutate(relative = cmass/sum(cmass))  %>% 
-    ungroup() %>%
-    filter(PFT %in% c("BNE", "IBS"),
-           PID %in% c(1), #1, 4, 7
-           Lon < -148 & Lon > -150, 
-           Year %in% seq(1850, 2300)) %>%
-    mutate(across(everything(), ~ifelse(is.na(.), 0, .))) %>% #if sum(cmass) = 0, this will be NA (can happen in the first years after a disturbance)
-    unique() %>%
-    mutate(PFT = long_names_pfts(tolower(PFT))) 
-  
-  df_ts_transient$PFT = factor(df_ts_transient$PFT, levels = c("Pioneering broadleaf", "Needleleaf evergreen"))
-  
-  return(df_ts_transient)
+long_names_pfts = function(x) {
+  x = gsub("ibs", "Pioneering broadleaf", x)
+  x = gsub("tebs", "Temperate broadleaf", x)
+  x = gsub("bne", "Needleleaf evergreen", x)
+  x = gsub("bine", "Shade-intolerant\nneedleleaf evergreen", x)
+  x = gsub("bns", "Needleleaf summergreen", x)
+  x = gsub("tene", "Temperate needleleaf", x)
+  x = gsub("tundra", "Tundra", x)
+  x = gsub("soil", "Bare soil", x)
+  x = gsub("mixed forest", "Mixed forest", x)
+  x = gsub("otherc", "Conifers (other)", x)
+  x = gsub("regeneration failure", "Regeneration failure", x)
+  return(x)
 }
 
 vegetation_ts = function(df) {
@@ -207,18 +163,70 @@ vegetation_density = function(df) {
   return(p)
 }
 
+plot_lpjguess = function() {
+  df_vegetation = read_vegetation_data("cmass")
+  (p1 = vegetation_ts(df_vegetation))
+  (p2 = vegetation_density(df_vegetation))
+  
+  
+  (pC = plot_grid(p1, p2, rel_widths = c(1, 0.3), align = "hv", axis = "l"))
+  
+  return(pC)
+  
+}
 
-df_vegetation = read_vegetation_data("cmass")
-df_vegetation = read_csv("data/df_vegetation.csv")
-(p1 = vegetation_ts(df_vegetation))
-(p2 = vegetation_density(df_vegetation))
+########### Plot panels
 
+(pA = plot_simple_model(-0.39, fp = c(1.16, -0.585), t1 = 270000, t2 = 600000, run_id = 9, stability = c("stable", "ghost")))
 
-(pC = plot_grid(p1, p2, rel_widths = c(1, 0.3), align = "hv", axis = "l"))
+(pB = plot_simple_model(0,  t1 = 670000, t2 = 1000000, run = 10))
 
-########### STICH AND SAVE
+(pC = plot_lpjguess())
+
+########### Stich and save
 
 plot_grid(pC, pB, pA, ncol = 1, labels = c("(a)", "(b)", "(c)"), vjust = 1)
 
-ggsave("figures/trajectories_transients.pdf", height = 8.5, scale = 1)
+ggsave("figures/trajectories_transients.pdf", height = 8.5, width = 10, scale = 1)
+
+
+########### Original code to pre-process data on the cluster
+read_vegetation_data = function(variable) {
+  scenario = "ssp126"
+  
+  con = dbConnect(duckdb(), dbdir = "/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/patch_analysis_paper/data/patches2.duckdb", read_only = FALSE) #create the database
+  dbListTables(con)
+  
+  
+  #these were created by manually looking at subsets of the data and finding trajectories that were able to fully recover twice in a row (pretty rare in this setting ..)
+  #see bottom of the script
+  
+  long_transients = data.frame(Lon = c(-149.25, -157.25, -156.75, -147.75, -148.75, -149.75, -146.25, -147.75, -148.75, -149.75, -142.25, -141.75),
+                               Lat = c(64.75, 66.75, 66.25, 64.75, 64.75, 64.25, 66.75, 66.25, 65.25, 64.25, 67.25, 67.25),
+                               PID = c(1, 1, 2, 3, 4, 7, 10, 11, 12, 15, 16, 16)) %>%
+    unique()
+  
+  
+  dbWriteTable(con, "long_transient_ssp126_pretty", long_transients, overwrite = T)
+  
+  df_ts_transient = dbGetQuery(con, paste0("SELECT d.Year, d.Lon, d.Lat, d.PID, d.PFT, d.age, d.cmass, d.ndist FROM '", scenario, "_d150_cmass' 
+                                AS d INNER JOIN long_transient_ssp126_pretty AS l ON d.PID = l.PID AND d.Lon = l.Lon AND d.Lat = l.Lat")) %>%
+    group_by(Year, Lon, Lat, PID) %>%
+    mutate(relative = cmass/sum(cmass))  %>% 
+    ungroup() %>%
+    filter(PFT %in% c("BNE", "IBS"),
+           PID %in% c(1), #1, 4, 7
+           Lon < -148 & Lon > -150, 
+           Year %in% seq(1850, 2300)) %>%
+    mutate(across(everything(), ~ifelse(is.na(.), 0, .))) %>% #if sum(cmass) = 0, this will be NA (can happen in the first years after a disturbance)
+    unique() %>%
+    mutate(PFT = long_names_pfts(tolower(PFT))) 
+  
+  df_ts_transient$PFT = factor(df_ts_transient$PFT, levels = c("Pioneering broadleaf", "Needleleaf evergreen"))
+  
+  return(df_ts_transient)
+}
+
+df_vegetation = read_vegetation_data("cmass")
+
  

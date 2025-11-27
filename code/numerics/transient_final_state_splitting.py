@@ -34,7 +34,7 @@ def simulate(alpha, k, batch):
 
     for n in range(1,T*N+1):
             for j in range(num_simulations):             
-                xi = stable_rv(alpha)
+                xi = stable_rv(alpha, 1)
                 y =  X[j] - k*dt + noise_amplitude*xi
                 X[j] = Phi(dt, y)
                 runs[j] = j + 25000*batch #make sure that run ID is unique across batches

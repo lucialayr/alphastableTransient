@@ -31,17 +31,13 @@ theme_set(
 
 colors = c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")
 
-##
-
+## functions
 estimate_potential = function(x) {
   
   U = -0.5*log(x)
   
   return(U)
 }
-
-#### LPJ-GUESS
-
 
 estimate_density_lpjguess = function(df, t1, t2) {
   df = df %>%
@@ -58,7 +54,7 @@ estimate_density_lpjguess = function(df, t1, t2) {
   return(df)
 }
 
-potentials_lpj_guess= function() {
+plot_potentials_lpjguess = function() {
   
   df3 = read_csv("data/processed/lpjguess_2d.csv") %>%
     estimate_density_lpjguess(273, 273 + 2)
@@ -98,15 +94,7 @@ potentials_lpj_guess= function() {
   
 }
 
-(p1 = potentials_lpj_guess())
-
-### Potential models
-
-
-
-k = -1
-a = 2
-simulated_densities = function() {
+plot_potentials_simple = function() {
   
   data = list()
   
@@ -134,11 +122,11 @@ simulated_densities = function() {
   df$k_label = factor(df$k_label, levels = c("k = -1", "k = -0.39", "k = 0"))
   
   fixed_points = data.frame(fp = c(-1, 0, 1, 
-                                  -0.585, 1.16,
-                                  -0.585, 1.33),
+                                   -0.585, 1.16,
+                                   -0.585, 1.33),
                             k_label = c("k = 0", "k = 0", "k = 0",
-                                  "k = -0.39", "k = -0.39",
-                                  "k = -1", "k = -1"),
+                                        "k = -0.39", "k = -0.39",
+                                        "k = -1", "k = -1"),
                             stability = c("stable", "unstable", "stable", "ghost", "stable",  "ghost", "stable"))
   
   fixed_points$k_label = factor(fixed_points$k_label, levels = c("k = -1", "k = -0.39", "k = 0"))
@@ -166,22 +154,11 @@ simulated_densities = function() {
   
 }
 
-(p2 = simulated_densities())
+### Plot
+(p1 = plot_potentials_lpjguess())
+
+(p2 = plot_potentials_simple())
 
 plot_grid(p1, p2, axis = "l", align = "hv", rel_widths = c(0.5, 1), labels = c("(a)", "(b)"))
 
 ggsave("figures/estimated_potential.pdf", width = 9, height = 5.5)
-
-
-
-##exploring the denstities
-df = read_csv("/dss/dssfs02/lwp-dss-0001/pr48va/pr48va-dss-0000/ge96dul2/transient_alphastable/data/processed/lpjguess_2d.csv") %>%
-  filter(TG > 274.5) %>%
-  group_by(Year) %>%
-  mutate(bin = cut_width(TG, width = 1, center = 1))
-
-df_potential = df
-
-(p = ggplot() + theme_bw() +
-    geom_histogram(data = df, aes(x = relative))) +
-  facet_wrap(bin ~ Year, ncol = 11, scales = "free_y")
