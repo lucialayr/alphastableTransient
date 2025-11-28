@@ -198,6 +198,6 @@ fp_ts = data.frame(y = c(-1, 0, 1),
           legend.title = element_text(size = 15)) +
     guides(shape = "none"))
 
-plot_grid(p1, p2, p3, align = "hv", axis = "l", nrow = 1, labels = c("(a)", "(b)", "(c)"))
+plot_grid(p1, p2, p3, align = "hv", nrow = 1, labels = c("(a)", "(b)", "(c)"))
 ggsave("figures/bifurcation_diagram.pdf", width = 18, height = 7, scale = 0.7)
 
