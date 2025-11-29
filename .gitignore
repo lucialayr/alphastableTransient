@@ -1,2 +1,6 @@
-data
-DOCKER_SETUP_PLAN.md
+data/final*
+data/traj*
+code/numerics/__pycache__/
+DOCKER.md
+DOCKER_NOTES.md
+environment.yml
