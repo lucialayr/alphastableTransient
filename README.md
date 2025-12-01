@@ -108,6 +108,7 @@ docker run --rm -v $(pwd)/data:/workspace/data -v $(pwd)/figures:/workspace/figu
 ├── **figures** &#x1F4C1; *Contains all the plots of the paper.*
 
 $^*$*See https://github.com/lucialayr/borealRecovery for details on methodology* 
+
 ---
 
 *The conceptual figure is published under a CC-BY-SA license. To reuse please cite:*
