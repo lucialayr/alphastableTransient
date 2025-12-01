@@ -4,34 +4,13 @@ This repository contains code and data needed to reproduce the data analysis and
 
 <img src="figures/potential_landscape.png" width="600" />
 
-## Folder structure
-
-├── **code** &#x1F4C1;
-
-│&nbsp; &nbsp; &nbsp; &nbsp;└── numerics &#x1F4C1;  *scripts to perform numerical simulations*
-
-│&nbsp; &nbsp; &nbsp; &nbsp;└── `Introduction_splitting_scheme.ipynb` &#x1F4C1; *An interactive notebook to give a friendly introduction to the splitting scheme*
-
-│&nbsp; &nbsp; &nbsp; &nbsp;└──  `Figure2_potential_estimation.R`&#x1F4C4; *Estimates and plots* $\hat{U}(\chi^C_{\text{BNE}})$ *and* $\hat{U}(X)$ 
-
-│&nbsp; &nbsp; &nbsp; &nbsp;└──  `Figure3_trajectories.R`&#x1F4C4; *Plots trajectories of* $\chi^C_{\text{i}}(t)$ *and* $X(t)$
-
-│&nbsp; &nbsp; &nbsp; &nbsp;└──  `Figure3_trajectories.R`&#x1F4C4; *Plots bifurcation diagrams*
-
-│&nbsp; &nbsp; &nbsp; &nbsp;└──  `lpj_densities.R`&#x1F4C4; *Estimates and plots* $\hat{p}(\chi^C_{\text{BNE}})$ *and* $\hat{p}(\chi^C_{\text{BNE}}, k_{T_G})$ *(only for thesis)*
-
-├── **data** &#x1F4C1;  *Data from numerical simulation needs to be created with the scripts in `data/numerics`*
-  
-├── **figures** &#x1F4C1; *Contains all the plots of the paper.*
-
-$^*$*See https://github.com/lucialayr/borealRecovery for details on methodology* 
 
 </p>
 
 ## Reproducing the analysis
 
 
-You to create numerical simulations and reproduce the analysis, there are two options
+ To recreate numerical simulations and reproduce the analysis, there are two options:
 
 ### Option 1: Using Conda Environment 
 
@@ -108,7 +87,27 @@ If you are working in the Docker container, R set-up is taken care of by the con
 ```bash
 docker run --rm -v $(pwd)/data:/workspace/data -v $(pwd)/figures:/workspace/figures alphastable-transient:latest Rscript code/<name>.R
 ```
+## Folder structure
 
+├── **code** &#x1F4C1;
+
+│&nbsp; &nbsp; &nbsp; &nbsp;└── numerics &#x1F4C1;  *scripts to perform numerical simulations*
+
+│&nbsp; &nbsp; &nbsp; &nbsp;└── `Introduction_splitting_scheme.ipynb` &#x1F4C1; *An interactive notebook to give a friendly introduction to the splitting scheme*
+
+│&nbsp; &nbsp; &nbsp; &nbsp;└──  `Figure2_potential_estimation.R`&#x1F4C4; *Estimates and plots* $\hat{U}(\chi^C_{\text{BNE}})$ *and* $\hat{U}(X)$ 
+
+│&nbsp; &nbsp; &nbsp; &nbsp;└──  `Figure3_trajectories.R`&#x1F4C4; *Plots trajectories of* $\chi^C_{\text{i}}(t)$ *and* $X(t)$
+
+│&nbsp; &nbsp; &nbsp; &nbsp;└──  `Figure3_trajectories.R`&#x1F4C4; *Plots bifurcation diagrams*
+
+│&nbsp; &nbsp; &nbsp; &nbsp;└──  `lpj_densities.R`&#x1F4C4; *Estimates and plots* $\hat{p}(\chi^C_{\text{BNE}})$ *and* $\hat{p}(\chi^C_{\text{BNE}}, k_{T_G})$ *(only for thesis)*
+
+├── **data** &#x1F4C1;  *Data from numerical simulation needs to be created with the scripts in `data/numerics`*
+  
+├── **figures** &#x1F4C1; *Contains all the plots of the paper.*
+
+$^*$*See https://github.com/lucialayr/borealRecovery for details on methodology* 
 ---
 
 *The conceptual figure is published under a CC-BY-SA license. To reuse please cite:*
