@@ -36,12 +36,6 @@ theme_set(
 
 ########### Functions
 
-for (i in seq(0,19)) {
-  (pA = plot_simple_model(0, t1 = 0, t2 = 1000000, run_id = i))
-  
-  ggsave(paste0(i, "_bistable.png"))
-}
-
 plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), run_id = 0, stability = c("stable", "unstable", "stable")) {
   
   data = list()
@@ -67,10 +61,15 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), run_
   
   df$a = factor(df$a, levels = rev(c("2", "1.5",  "1", "0.5")))
   
+  if (k == 0) {
+    write.csv(df, paste0("data/Trajectories_Figure3b.csv"), row.names = F)
+  } else if (k == -0.39) {
+    write.csv(df, paste0("data/Trajectories_Figure3c.csv"), row.names = F)
+  }
+  
+  
   (p1 = ggplot() + 
       coord_cartesian(ylim = c(-2.5,2.5)) +
-      #geom_hline(data = NULL, yintercept = -0.585, linetype = 'dashed', color = "#D55E00", linewidth = 0.25) +
-      #geom_hline(data = NULL, yintercept = 1.16, linetype = 'solid', color = "#D55E00", linewidth = 0.25) +
       geom_hline(data = NULL, aes(yintercept = fp, linetype = stability), color = "#D55E00", linewidth = 0.5) +
       geom_line(data = df, aes(x = timestep, y = state, color = a, linewidth = a)) +
       geom_point(data = NULL, aes(x = -Inf, y = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1) +
