@@ -29,7 +29,7 @@ theme_set(
 )
 
 
-colors = c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")
+colors = c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#8B9CEB")
 
 ## functions
 estimate_potential = function(x) {
@@ -139,7 +139,7 @@ plot_potentials_simple = function() {
       facet_wrap(~k_label, scales = "free_y", nrow = 1) +
       scale_x_continuous(limits = c(-2., 2), expand = c(0,0), name = "State X") +
       scale_y_continuous(expand = c(0,0), limits = c(-.5, 5), name = expression("Estimated potential"~hat(U)~"("~X~")"),) +
-      scale_color_manual(values = rev(c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
+      scale_color_manual(values = rev(c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#8B9CEB")),
                          name = expression(alpha~of~noise)) +
       scale_linewidth_manual(values = rev(c("2" = 1, "1.5" =  0.75, "1" = 0.75, "0.5" =  0.75)),
                              name = expression(alpha~of~noise)) +

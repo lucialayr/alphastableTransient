@@ -67,17 +67,16 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), run_
     write.csv(df, paste0("data/Trajectories_Figure3c.csv"), row.names = F)
   }
   
-  
   (p1 = ggplot() + 
       coord_cartesian(ylim = c(-2.5,2.5)) +
-      geom_hline(data = NULL, aes(yintercept = fp, linetype = stability), color = "#D55E00", linewidth = 0.5) +
+      #geom_hline(data = NULL, aes(yintercept = fp, linetype = stability), color = "#D55E00", linewidth = 0.5) +
       geom_line(data = df, aes(x = timestep, y = state, color = a, linewidth = a)) +
-      geom_point(data = NULL, aes(x = -Inf, y = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1) +
-      scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
+      #geom_point(data = NULL, aes(x = -Inf, y = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1) +
+      scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#8B9CEB")),
                          name = expression(alpha~of~noise)) +
       scale_linetype_manual(values = c("stable" = "solid", "unstable" = "dotted", ghost = "dotdash"), name = "Fixed points") +
       scale_shape_manual(values = c("stable" = 19, "unstable" = 1, "ghost" = 10), name = "Fixed points") +
-      scale_linewidth_manual(values = (c("2" = 0.3, "1.5" =  0.3, "1" = 0.3, "0.5" =  0.3)),
+      scale_linewidth_manual(values = (c("2" = 0.6, "1.5" =  0.6, "1" = 0.6, "0.5" =  0.6)),
                              name = expression(alpha~of~noise)) +
       scale_x_continuous(expand = c(0,0), name = "Simulation timestep") +
       scale_y_continuous(breaks = c(-2, -1, 0, 1, 2), expand = c(0,0), name = "State X") +
@@ -93,13 +92,13 @@ plot_simple_model = function(k, t1 = 176000, t2 = 193000, fp = c(-1, 0, 1), run_
       geom_point(aes(y = -Inf, x = fp, shape = stability), color = "#D55E00", fill = "#D55E00", size = 3, stroke = 1.2) +
       scale_y_continuous(expand = c(0,0), breaks = c(0), name = expression("Density "~hat(p)~"("~X~")")) +
       scale_x_continuous(limits = c(-2.5, 2), breaks = c(-2, -1, 0, 1, 2),  expand = c(0,0), name =  "") +
-      scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
+      scale_color_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#8B9CEB")),
                          name = expression(alpha~of~noise)) +
       scale_linetype_manual(values = c("stable" = "solid", "unstable" = "dotted", ghost = "dotdash"), name = "Fixed points") +
       scale_shape_manual(values = c("stable" = 19, "unstable" = 1, "ghost" = 10), name = "Fixed points") +
-      scale_fill_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#56B4E9")),
+      scale_fill_manual(values = (c("2" = "black", "1.5" =  "#0072B2", "1" = "#009E73", "0.5" =  "#8B9CEB")),
                         name = expression(alpha~of~noise)) +
-      scale_linewidth_manual(values = rev(c("2" = 0.75, "1.5" =  0.5, "1" = 0.5, "0.5" =  0.5)),
+      scale_linewidth_manual(values = rev(c("2" = 0.75, "1.5" =  0.75, "1" = 0.75, "0.5" =  0.75)),
                              name = expression(alpha~of~noise)) +
       theme(legend.position = "none",
             legend.direction = "vertical",
@@ -134,8 +133,8 @@ vegetation_ts = function(df) {
      scale_x_continuous(expand = c(0,0), name = "Simulation year") +
      scale_y_continuous(limits = c(-0.1, 1.1),  breaks = c(0, 0.5, 1), expand = c(0,0), name =  expression(PFT~share~chi[i]^C)) +
      scale_color_manual(name = "Plant functional types (PFTs)", drop = TRUE,
-                        values = c("Needleleaf evergreen" = "#0072B2", "Pioneering broadleaf" = "#E69F00")) +
-     scale_linewidth_manual(name = "Plant functional types (PFTs)", values = c("Needleleaf evergreen" = 0.75, "Pioneering broadleaf" = 0.5)) +
+                        values = c("Needleleaf evergreen" = "#0072B2", "Pioneering broadleaf" = "#B8860B")) +
+     scale_linewidth_manual(name = "Plant functional types (PFTs)", values = c("Needleleaf evergreen" = 1, "Pioneering broadleaf" = 1)) +
      theme(legend.position = "bottom",
            legend.direction = "horizontal"))
   
@@ -150,12 +149,12 @@ vegetation_density = function(df) {
      scale_y_continuous(expand = c(0,0), breaks = c(0), name = expression("Density "~hat(p)~"("~chi[i]^C~")")) +
      scale_x_continuous(breaks = c(0, 0.5, 1), limits = c(-0.1, 1.1), expand = c(0,0), name = "") +
      scale_fill_manual(name = "Plant functional types (PFTs)", drop = TRUE,
-                       values = c("Needleleaf evergreen" = "#0072B2", "Pioneering broadleaf" = "#E69F00"),
+                       values = c("Needleleaf evergreen" = "#0072B2", "Pioneering broadleaf" = "#B8860B"),
                        breaks = c( "Needleleaf evergreen", "Pioneering broadleaf")) +
      scale_color_manual(name = "Plant functional types (PFTs)", drop = TRUE,
-                        values = c("Needleleaf evergreen" = "#0072B2", "Pioneering broadleaf" = "#E69F00"),
+                        values = c("Needleleaf evergreen" = "#0072B2", "Pioneering broadleaf" = "#B8860B"),
                         breaks = c( "Needleleaf evergreen", "Pioneering broadleaf")) +
-     scale_linewidth_manual(name = "Plant functional types (PFTs)", values = c("Needleleaf evergreen" = 0.75, "Pioneering broadleaf" = 0.5)) +
+     scale_linewidth_manual(name = "Plant functional types (PFTs)", values = c("Needleleaf evergreen" = 1, "Pioneering broadleaf" = 1)) +
      theme(legend.position = "none",
            legend.direction = "horizontal"))
   
@@ -163,7 +162,7 @@ vegetation_density = function(df) {
 }
 
 plot_lpjguess = function() {
-  df_vegetation = read_vegetation_data("cmass")
+  df_vegetation = read_csv('data/df_vegetation.csv') 
   (p1 = vegetation_ts(df_vegetation))
   (p2 = vegetation_density(df_vegetation))
   
@@ -178,7 +177,7 @@ plot_lpjguess = function() {
 
 (pA = plot_simple_model(-0.39, fp = c(1.16, -0.585), t1 = 270000, t2 = 600000, run_id = 9, stability = c("stable", "ghost")))
 
-(pB = plot_simple_model(0,  t1 = 670000, t2 = 1000000, run = 10))
+(pB = plot_simple_model(0,  t1 = 670000, t2 = 1000000, run = 19))
 
 (pC = plot_lpjguess())
 
@@ -189,7 +188,7 @@ plot_grid(pC, pB, pA, ncol = 1, labels = c("(a)", "(b)", "(c)"), vjust = 1)
 ggsave("figures/trajectories_transients.pdf", height = 8.5, width = 10, scale = 1)
 
 
-########### Original code to pre-process data on the cluster
+ ########### Original code to pre-process data on the cluster
 read_vegetation_data = function(variable) {
   scenario = "ssp126"
   
